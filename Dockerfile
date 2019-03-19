@@ -17,7 +17,9 @@ RUN git clone https://github.com/apache/incubator-pinot.git /opt/incubator-pinot
     mkdir -p ${PINOT_HOME}/configs && \
     mkdir -p ${PINOT_HOME}/data && \
     cp -r pinot-distribution/target/apache-pinot-incubating-*-bin/apache-pinot-incubating-*-bin/* ${PINOT_HOME}/. && \
-	chmod +x ${PINOT_HOME}/bin/*.sh
+    chmod +x ${PINOT_HOME}/bin/*.sh && \
+    mvn dependency:purge-local-repository -DactTransitively=false -DreResolve=false --fail-at-end && \
+    rm -rf /opt/incubator-pinot
 
 COPY configs ${PINOT_HOME}/configs
 
